@@ -14,10 +14,9 @@ fn problem_one(input: &str) -> u64 {
 fn problem_two(input: &str) -> u64 {
     use std::collections::BinaryHeap;
 
-    let elf_calories = elf_calorie_iterator(&input).collect::<BinaryHeap<u64>>();
-
-    elf_calories
-        .iter()
+    elf_calorie_iterator(&input)
+        .collect::<BinaryHeap<u64>>()
+        .into_iter()
         .take(3)
         .sum::<u64>()
 }
