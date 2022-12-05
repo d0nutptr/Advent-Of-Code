@@ -1,35 +1,34 @@
-use std::fmt::Display;
+use crate::solutions::{AdventSolution, Day};
 
-fn main() {
-    let input = std::fs::read_to_string("input.txt").unwrap();
 
-    println!("Problem one: {}", problem_one(&input));
-    println!("Problem two: {}", problem_two(&input));
+impl AdventSolution for Day<2> {
+    type OutputOne = u64;
+    type OutputTwo = u64;
+
+    fn problem_one(input: &str) -> Self::OutputOne {
+        solve_problem::<Hand, Outcome, Hand>(input)
+    }
+
+    fn problem_two(input: &str) -> Self::OutputTwo {
+        solve_problem::<Hand, Hand, Outcome>(input)
+    }
 }
 
-fn solve_problem<L, Ratio, Unknown>(input: &str) -> impl Display
-where
-    L: From<String>,
-    Ratio: From<String> + PointsT + Clone,
-    Unknown: From<(L, Ratio)> + PointsT
+fn solve_problem<L, Ratio, Unknown>(input: &str) -> u64
+    where
+        L: From<String>,
+        Ratio: From<String> + PointsT + Clone,
+        Unknown: From<(L, Ratio)> + PointsT
 {
     rps_iter::<L, Ratio>(input)
         .map(|(left, right)| Unknown::from((left, right.clone())).get_points() + right.get_points())
         .sum::<u64>()
 }
 
-fn problem_one(input: &str) -> impl Display {
-    solve_problem::<Hand, Hand, Outcome>(input)
-}
-
-fn problem_two(input: &str) -> impl Display {
-    solve_problem::<Hand, Outcome, Hand>(input)
-}
-
 fn rps_iter<Left, Right>(input: &str) -> impl Iterator<Item = (Left, Right)> + '_
-where
-    Left: From<String>,
-    Right: From<String>
+    where
+        Left: From<String>,
+        Right: From<String>
 {
     input
         .lines()
