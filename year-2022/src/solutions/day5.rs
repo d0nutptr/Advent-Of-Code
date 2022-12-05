@@ -1,5 +1,4 @@
 use std::collections::VecDeque;
-use std::str::{Chars, Lines};
 use itertools::Itertools;
 use crate::solutions::{AdventSolution, Day};
 
@@ -17,7 +16,7 @@ impl AdventSolution for Day<5> {
 }
 
 fn solve_problem<Crane: CrateMoverT>(input: &str) -> String {
-    let (mut shipyard, mut instructions) = parser(input);
+    let (mut shipyard, instructions) = parser(input);
 
     for Instruction { from_idx, to_idx, amount } in instructions {
         shipyard.move_elements::<Crane>(amount, from_idx, to_idx);
@@ -96,10 +95,6 @@ impl Shipyard {
         Self {
             stacks: vec![VecDeque::default(); size]
         }
-    }
-
-    fn len(&self) -> usize {
-        self.stacks.len()
     }
 
     fn top_elements(&self) -> Vec<char> {
