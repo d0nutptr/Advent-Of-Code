@@ -6,20 +6,22 @@ mod solutions;
 
 use crate::solutions::*;
 
-fn main() {
-    Day::<1>::run();
-    Day::<2>::run();
-    Day::<3>::run();
-    Day::<4>::run();
-    Day::<5>::run();
+macro_rules! run_aoc_days {
+    ($day:literal) => {
+        Day::<$day>::run();
+    };
+    ($day:literal, $($days:literal),+) => {
+        Day::<$day>::run();
+        run_aoc_days!($($days),+);
+    }
 }
 
-// const fn run_aoc<const DayNum: usize>()
-//     where [(); { DayNum - 1 }]:
-// {
-//     if DayNum > 0 {
-//         run_aoc::<{ DayNum - 1 }>() ;
-//
-//         Day::<{ DayNum as u64 }>::run();
-//     }
-// }
+fn main() {
+    run_aoc_days![
+        1,
+        2,
+        3,
+        4,
+        5
+    ];
+}
