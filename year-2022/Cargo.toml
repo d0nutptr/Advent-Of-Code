@@ -5,6 +5,22 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+name = "aoc"
+path = "src/lib.rs"
+
+[[bin]]
+name = "run_aoc"
+path = "src/main.rs"
+
 [dependencies]
 itertools = "0.10.5"
 bit-set = "0.5"
+seq-macro = "0.3.1"
+
+[dev-dependencies]
+criterion = { version = "0", features = ["html_reports"] }
+
+[[bench]]
+name = "humble_prime"
+harness = false

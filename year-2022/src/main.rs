@@ -1,8 +1,13 @@
 #![allow(incomplete_features)]
 #![feature(iter_array_chunks)]
 #![feature(generic_const_exprs)]
+#![feature(portable_simd)]
+#![feature(slice_flatten)]
+#![feature(slice_as_chunks)]
+#![feature(array_chunks)]
+#![feature(binary_heap_into_iter_sorted)]
 
-mod solutions;
+pub mod solutions;
 
 use crate::solutions::*;
 
@@ -23,6 +28,7 @@ fn main() {
         3,
         4,
         5,
-        6
+        6,
+        7
     ];
 }
